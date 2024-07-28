@@ -2,10 +2,15 @@ USE alx_book_store;
 
 SELECT 
     CONCAT('CREATE TABLE `Books` (') AS 'Description',
-    CONCAT('    `book_id` INT PRIMARY KEY,') AS 'Description',
-    CONCAT('    `title` VARCHAR(130),') AS 'Description',
-    CONCAT('    `author_id` INT,') AS 'Description',
-    CONCAT('    `price` DOUBLE,') AS 'Description',
-    CONCAT('    `publication_date` DATE,') AS 'Description',
-    CONCAT('    FOREIGN KEY (`author_id`) REFERENCES `Authors`(`author_id`)') AS 'Description',
-    CONCAT(')') AS 'Description';
+    GROUP_CONCAT(
+        CONCAT('    `', COLUMN_NAME, '` ', COLUMN_TYPE)
+        ORDER BY ORDINAL_POSITION
+    ) AS 'Description',
+    CONCAT(
+        '    FOREIGN KEY (`author_id`) REFERENCES `Authors`(`author_id`)',
+        ')'
+    ) AS 'Description'
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_SCHEMA = 'alx_book_store' 
+  AND TABLE_NAME = 'Books'
+GROUP BY TABLE_NAME;
