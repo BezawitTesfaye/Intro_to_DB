@@ -1,5 +1,10 @@
--- Database Name: alx_book_store
+-- Create the database if it doesn't exist
+CREATE DATABASE IF NOT EXISTS alx_book_store;
 
+-- Use the database
+USE alx_book_store;
+
+-- Create the tables
 CREATE TABLE Authors (
     author_id INT PRIMARY KEY,
     author_name VARCHAR(215)
